@@ -1,0 +1,94 @@
+#:import utils kivy.utils
+#:import Factory kivy.factory.Factory
+
+<MyPopup@Popup>
+    auto_dismiss: False
+    title:"PDF Files Merged"
+    font_size:24
+    size_hint:0.6,0.2
+    pos_hint:{"x":0.2,"top":0.9}
+
+    Button:
+        text:"Close"
+        font_size:24
+        on_release:root.dismiss()
+
+<MyLayout>
+    input_path:input_path
+    list_view:list_view
+    BoxLayout:
+        orientation:"vertical"
+        size:root.width,root.height
+        GridLayout:
+            rows:1
+            cols:3
+            padding:10
+            spacing:10
+            Label:
+                markup : True
+                text:"[b]Path[/b]"
+                size_hint: .1,.1
+                font_size:32
+            TextInput:
+                id:input_path
+                multiline:"true"
+                size_hint: .7,.1
+                font_size:32
+            Button:
+                text:"Submit"
+                size_hint: .2,.1
+                background_color:(48/255,84/255,155/255,1)
+                background_normal:''
+                on_press: root.list_files()
+                font_size:32
+
+        BoxLayout:
+            size_hint: .9,.2
+            Label:
+                markup : True
+                text:"[b]List of all Files[/b]"
+                #size_hint: .5,.2
+            Label:
+                markup : True
+                text:"[b]Extracted Pdf Files[/b]"
+                #size_hint: .5,.2
+
+        BoxLayout:
+            padding:10
+            spacing:10
+            size_hint: 1,4
+            TextInput:
+                id:list_view
+                multiline:"true"
+            TextInput:
+                id:pdf_view
+                multiline:"true"
+
+        GridLayout:
+            rows:1
+            cols:2
+            padding:10
+            spacing:10
+            Button:
+                text:"Merge PDF"
+                font_size:32
+                background_normal:''
+                background_color:(48/255,84/255,155/255,1)
+                on_release:Factory.MyPopup().open()
+                on_press: root.merge_pdfs()
+            Button:
+                text:"Clear"
+                font_size:32
+                background_normal:''
+                background_color:(48/255,84/255,155/255,1)
+                on_press : root.clear()
+
+        BoxLayout:
+            padding:10
+            spacing:10
+            TextInput:
+                id:result
+                font_size:28
+                multiline:"False"
+
+
